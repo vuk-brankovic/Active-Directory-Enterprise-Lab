@@ -13,5 +13,36 @@ https://parrotsec.org/download/
 Download Ubuntu Server ISO image which will host Splunk:
 https://ubuntu.com/download/server
 
-#### Set up machines using virtual box:
+#### Set up machines using virtual box
 See steps in [virtual-box-machines-config.md](../VM-setup/virtual-box-machines-config.md)
+
+#### VMs NAT Network configuration 
+Create NAT Network in virtual box and assign it to the VMs.
+
+![Windows Server VM Settings](../general-steps//images_ignore/scr6.PNG)
+
+Lesson Notes:
+
+NAT (basic): the VM gets internet access through your host PC, like a phone sharing someone's hotspot. But VMs cannot talk to each other. Each VM is isolated. This is the default when you create a VM.
+
+NAT Network: same internet access, but now all VMs on the same NAT Network can also talk to each other. This is what your professor set up and what you want. One shared network, internet works, VMs communicate freely.
+
+Host-Only: VMs can talk to each other and to your physical PC, but no internet access at all. Useful for isolated labs but annoying when you need to download things.
+
+Bridged: the VM connects directly to your physical router as if it were a real separate PC on your home network. Gets its own IP from your router. More exposure, not ideal for a lab with an attacker machine.
+
+Internal Network: VMs talk only to each other, completely cut off from everything including your PC and internet. Maximum isolation.
+
+![Windows Server VM Settings](../general-steps//images_ignore/scr7.PNG)
+
+Repeat on all the VMs.
+
+#### Configuring Splunk on Linux Server
+
+See steps in [linux-server-splunk.md](../VM-setup/linux-server-splunk.md)
+
+#### Configuring Splunk and Sysmon on Windows 11 workstation
+
+Now configure splunk and sysmon on Windows 11 PC and Windows Server (Domain Controller).
+
+See steps in [windows-11-pc.md](../VM-setup/windows-11-pc.md)
