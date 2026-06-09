@@ -288,7 +288,32 @@ Add accounts to GG_SERVICE_ACCOUNTS:
 
 `PS C:\WINDOWS\system32> Add-ADGroupMember -Identity "GG_SERVICE_ACCOUNTS" -Members "svc-splunk","svc-backup","svc-ftp"`
 
-
 Optionally check results:
 `Get-ADGroupMember -Identity "GG_SERVICE_ACCOUNTS" | Select-Object Name`
+
+
+#### Users
+
+Transfer .csv files on Windows 11 VM -> i used Virtual Box's shared folder for convenience.
+
+Open PS as administrator on Windows11 Administrator and execute [Users_creation.ps1](../PS-scripts/Users_creation.ps1) script.
+
+First and Last name files are in [Files](../Files/FirstNames.csv).
+First and Last name files are in [Files](../Files/LastNames.csv).
+
+```
+PS C:\users\adm-wbishop\Documents> set-executionPolicy bypass -scope currentUser
+PS C:\users\adm-wbishop\Documents> . .\Users_creation.ps1
+PS C:\users\adm-wbishop\Documents> Create-ADLabUsers -Domain "massivedynamic.local" -NumberOfADUserAccounts 3400 -FirstNameFile "FirstNames.csv" -LastNameFile "LastNames.csv" -Title "Student" -NameFormatLayout "FLast"
+PS C:\users\adm-wbishop\documents> Create-ADLabUsers -Domain "massivedynamic.local" -NumberOfADUserAccounts 100 -FirstNameFile "FirstNames.csv" -LastNameFile "LastNames.csv" -Title "Professor" -NameFormatLayout "FLast"
+PS C:\users\adm-wbishop\documents> Create-ADLabUsers -Domain "massivedynamic.local" -NumberOfADUserAccounts 60 -FirstNameFile "FirstNames.csv" -LastNameFile "LastNames.csv" -Title "Associate" -NameFormatLayout "FLast"
+PS C:\users\adm-wbishop\documents> Create-ADLabUsers -Domain "massivedynamic.local" -NumberOfADUserAccounts 20 -FirstNameFile "FirstNames.csv" -LastNameFile "LastNames.csv" -Title "HR" -NameFormatLayout "FLast"
+PS C:\users\adm-wbishop\documents> Create-ADLabUsers -Domain "massivedynamic.local" -NumberOfADUserAccounts 20 -FirstNameFile "FirstNames.csv" -LastNameFile "LastNames.csv" -Title "Secretary" -NameFormatLayout "FLast"
+```
+
+Use [Users_delete.ps1](../PS-scripts/Users_delete.ps1) script if you want to delete users with the same role (Student, Professor, etc.).
+
+
+
+
 

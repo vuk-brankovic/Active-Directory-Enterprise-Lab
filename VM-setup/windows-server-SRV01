@@ -1,0 +1,26 @@
+Use snapshot of fresh Windows Server 2025 OS (before domain creation and promoting to DC). (Base Win Server)
+
+For MAC address policy select Generate new MAC addresses for all network adapters. Also select Full Clone.
+
+So here we are:
+
+![Windows Server VM Settings](../general-steps//images_ignore/scr16.PNG)
+
+Change NAT network adapter to AD Project in virtual box gui.
+
+Start and log in into SRV01 VM.
+
+```
+PS C:\WINDOWS\system32> New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.0.9 -PrefixLength 24 -DefaultGateway 192.168.0.1
+PS C:\WINDOWS\system32> Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.0.5
+PS C:\WINDOWS\system32> Rename-Computer -NewName "SRV01" -Restart
+```
+
+Join in to domain.
+```PS C:\WINDOWS\system32> Add-Computer -DomainName "massivedynamic.local" -Credential MASSIVEDYNAMIC\Administrator -Restart```
+
+
+#### *
+For some weird reason it kept saying that credentials provided in domain join command are wrong. I could debug that or find the reason why. So i syspreped the VM and repeated the commands configuration and it worked without the problem. Beforehand machine was laggy too. I guess there was some weird cloning issue that couldn't be discovered via logs.
+
+Take a snapshot -> SRV01 Domain-Joined
